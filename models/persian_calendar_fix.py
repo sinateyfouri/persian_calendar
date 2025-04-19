@@ -1,6 +1,9 @@
 from odoo import models, fields, api
 import jdatetime
 from datetime import datetime
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -12,9 +15,16 @@ class SaleOrder(models.Model):
     def _compute_date_order_shamsi(self):
         for order in self:
             if order.date_order and self.env.user.lang == 'fa_IR':
-                gregorian_date = fields.Datetime.from_string(order.date_order)
-                shamsi_date = jdatetime.date.fromgregorian(date=gregorian_date)
-                order.date_order_shamsi = shamsi_date.strftime('%Y/%m/%d')
+                try:
+                    # اطمینان از اینکه date_order یه شیء datetimeه
+                    gregorian_date = fields.Datetime.to_datetime(order.date_order)
+                    _logger.debug(f"Converting date_order {gregorian_date} for order {order.name}")
+                    shamsi_date = jdatetime.date.fromgregorian(date=gregorian_date)
+                    order.date_order_shamsi = shamsi_date.strftime('%Y/%m/%d')
+                    _logger.debug(f"Computed shamsi date: {order.date_order_shamsi}")
+                except Exception as e:
+                    _logger.error(f"Error converting date_order for order {order.name}: {str(e)}")
+                    order.date_order_shamsi = False
             else:
                 order.date_order_shamsi = order.date_order
 
@@ -22,9 +32,13 @@ class SaleOrder(models.Model):
     def _compute_validity_date_shamsi(self):
         for order in self:
             if order.validity_date and self.env.user.lang == 'fa_IR':
-                gregorian_date = order.validity_date
-                shamsi_date = jdatetime.date.fromgregorian(date=gregorian_date)
-                order.validity_date_shamsi = shamsi_date.strftime('%Y/%m/%d')
+                try:
+                    gregorian_date = order.validity_date
+                    shamsi_date = jdatetime.date.fromgregorian(date=gregorian_date)
+                    order.validity_date_shamsi = shamsi_date.strftime('%Y/%m/%d')
+                except Exception as e:
+                    _logger.error(f"Error converting validity_date for order {order.name}: {str(e)}")
+                    order.validity_date_shamsi = False
             else:
                 order.validity_date_shamsi = order.validity_date
 
