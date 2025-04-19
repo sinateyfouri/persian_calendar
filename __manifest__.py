@@ -5,7 +5,7 @@
 {
     'name': "Persian Calendar",
     'summary': """Persian Calendar""",
-    'description': """Persian Calendar""",
+    'description': """Persian Calendar developed for invoices""",
     'author': "Odoo Community Iran",
     'website': "https://odoo-community.ir/",
     'category': 'Localization/Iran',
