@@ -18,7 +18,6 @@
             'persian_calendar/static/src/js/farvardin.js',
             'persian_calendar/static/src/js/datetimepicker_service.js',
             'persian_calendar/static/src/js/loader.js',
-            'persian_calendar/static/src/js/date_field_patch.js',
         ],
         'persian_calendar.calendar_persian':[
             'persian_calendar/static/src/js/format_utils.js',
