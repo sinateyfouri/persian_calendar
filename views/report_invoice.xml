@@ -8,6 +8,9 @@
         <xpath expr="//div[@t-field='o.invoice_date_due']" position="replace">
             <div><t t-esc="o.invoice_date_due_shamsi or o.invoice_date_due"/></div>
         </xpath>
+		<xpath expr="//div[@t-field='o.delivery_date']" position="replace">
+			<div><t t-esc="o.delivery_date_shamsi or o.delivery_date"/></div>
+		</xpath>
     </template>
 
     <!-- اصلاح گزارش پیش‌فاکتور -->
