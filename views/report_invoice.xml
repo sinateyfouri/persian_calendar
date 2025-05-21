@@ -8,16 +8,18 @@
         <xpath expr="//div[@t-field='o.invoice_date_due']" position="replace">
             <div><t t-esc="o.invoice_date_due_shamsi or o.invoice_date_due"/></div>
         </xpath>
+		<xpath expr="//div[@t-field='o.delivery_date']" position="replace">
+			<div><t t-esc="o.delivery_date_shamsi or o.delivery_date"/></div>
+		</xpath>
     </template>
 
     <!-- اصلاح گزارش پیش‌فاکتور -->
     <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
-        <xpath expr="//div[@t-field='doc.date_order' or @t-esc='doc.date_order']" position="replace">
+        <xpath expr="//*[@t-field='doc.date_order' or @t-esc='doc.date_order']" position="replace">
             <div><t t-esc="doc.date_order_shamsi or doc.date_order"/></div>
         </xpath>
-        <xpath expr="//div[@t-field='doc.validity_date' or @t-esc='doc.validity_date']" position="replace">
+        <xpath expr="//*[@t-field='doc.validity_date' or @t-esc='doc.validity_date']" position="replace">
             <div><t t-esc="doc.validity_date_shamsi or doc.validity_date"/></div>
         </xpath>
     </template>
-
 </odoo>
